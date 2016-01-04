@@ -1,4 +1,5 @@
 """
+THIS FILE IS IN THE PROCESS OF BEING REPLACED
 This contains a base class for a ship, and its base attributes, including hull, and loadouts.
 """
 
