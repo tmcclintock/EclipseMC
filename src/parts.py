@@ -23,6 +23,10 @@ class Part(object):
         outstring = "%s:\n\tAim=%d\n\tHull=%d\n\tInit=%d\n\tPower=%d\n\tShield=%d\n\tSpeed=%d\n\tWeapons:\n%s"%(self.name,self.aim,self.hull,self.initiative,self.power,self.shield,self.speed,weaponstring)
         return outstring
 
+class Blank(Part):
+    def __init__(self):
+        Part.__init__(self,name="Blank")
+
 class Ion_cannon(Part):
     def __init__(self):
         Part.__init__(self,name="Ion Cannon",power=-1,weapons=[weapon_objects.Ion_cannon()])
@@ -38,6 +42,14 @@ class Hull(Part):
 class Improved_hull(Part):
     def __init__(self):
         Part.__init__(self,name="Improved Hull",hull=2)
+
+class Nuclear_drive(Part):
+    def __init__(self):
+        Part.__init__(self,name="Nuclear Drive",initiative=1,power=-1,speed=1)
+
+class Nuclear_source(Part):
+    def __init__(self):
+        Part.__init__(self,name="Nuclear Source",power=2)
 
 if __name__ == '__main__':
     ic = Ion_cannon()
