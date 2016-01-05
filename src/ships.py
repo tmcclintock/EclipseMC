@@ -24,6 +24,23 @@ class Ship(object):
         self.parts[index] = part
         return
 
+    def attack(self):
+        if self.parts is None:
+            raise Exception("Cannot fire with no parts.")
+        aim = 0
+        weaponlist = []
+        barrage = []
+        for part in self.parts:
+            aim+=part.aim
+            if part.weapons is not None:
+                for weapon in part.weapons:
+                    weaponlist.append(weapon)
+        for weapon in weaponlist:
+            shot = weapon.fire()
+            shot.append(shot[0]+aim)
+            barrage.append(shot)
+        return barrage
+
 class Interceptor(Ship):
     def __init__(self):
         Ship.__init__(self,name="Interceptor",parts=[ship_parts.Blank(),ship_parts.Ion_cannon(),ship_parts.Nuclear_drive(),ship_parts.Nuclear_source()])
@@ -36,3 +53,4 @@ if __name__ == '__main__':
     print ic
     ic.swap(ship_parts.Ion_cannon(),0)
     print ic
+    print ic.attack()
