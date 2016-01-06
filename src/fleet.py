@@ -6,6 +6,7 @@ arrays containing information about the ships in the fleet.
 """
 
 import copy as copy_module #Needed to make deep copies of fleets
+import parts as ship_parts
 import ships
 
 class Fleet(object):
@@ -23,11 +24,14 @@ class Fleet(object):
     def add(self,ship):
         self.shiplist.append(ship)
 
+    def copy(self):
+        return copy_module.deepcopy(self)
+
     def remove(self,index):
         self.shiplist.pop(index)
 
-    def copy(self):
-        return copy_module.deepcopy(self)
+    def sort(self):
+        self.shiplist = sorted(self.shiplist)
 
 if __name__ == '__main__':
     fleeta = Fleet("Player A",[ships.Interceptor(),ships.Interceptor()])

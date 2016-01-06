@@ -6,9 +6,13 @@ import copy as copy_module #Needed to make deep copies of ships
 import parts as ship_parts
 
 class Ship(object):
-    def __init__(self,name="",parts=None):
+    def __init__(self,name="",aim=0,initiative=0,power=0,shield=0,parts=[]):
         self.name = name
         self.parts = parts
+        self.aim = aim
+        self.initiative = initiative
+        self.power = power
+        self.shield = shield
 
     def __str__(self):
         partsstring = ""
@@ -17,18 +21,13 @@ class Ship(object):
                 partsstring = partsstring+"\t"+str(i)+". "+p.name+"\n"
         return "%s:\n%s"%(self.name,partsstring)
 
-    def swap(self,part,index):
-        if self.parts is None:
-            raise Exception("Swap attempted with no parts.")
-        if index > len(self.parts) or index < 0:
-            raise Exception("Swapped part index is invalid.")
-        self.parts[index] = part
-        return
+    def __cmp__(self, obj):
+        if obj is None or not isinstance(obj,Ship):
+            raise Exception("Cannot compare to type "+str(obj)+".")
+        return cmp(-self.get_initiative(),-obj.get_initiative())
 
     def attack(self):
-        if self.parts is None:
-            raise Exception("Cannot fire with no parts.")
-        aim = 0
+        aim = self.aim
         weaponlist = []
         barrage = []
         for part in self.parts:
@@ -45,9 +44,23 @@ class Ship(object):
     def copy(self):
         return copy_module.deepcopy(self)
 
+    def get_initiative(self):
+        init = self.initiative
+        for part in self.parts:
+            init+=part.initiative
+        return init
+
+    def swap(self,part,index):
+        if self.parts is None:
+            raise Exception("Swap attempted with no parts.")
+        if index > len(self.parts) or index < 0:
+            raise Exception("Swapped part index is invalid.")
+        self.parts[index] = part
+        return
+
 class Interceptor(Ship):
     def __init__(self):
-        Ship.__init__(self,name="Interceptor",parts=[ship_parts.Blank(),ship_parts.Ion_cannon(),ship_parts.Nuclear_drive(),ship_parts.Nuclear_source()])
+        Ship.__init__(self,name="Interceptor",initiative=1,parts=[ship_parts.Blank(),ship_parts.Ion_cannon(),ship_parts.Nuclear_drive(),ship_parts.Nuclear_source()])
 
 if __name__ == '__main__':
     ic = Interceptor()
@@ -57,3 +70,5 @@ if __name__ == '__main__':
     cic = ic.copy()
     cic.swap(ship_parts.Electron_computer(),0)
     print ic,cic
+    print cic.attack()
+    print cmp(ic,cic)
