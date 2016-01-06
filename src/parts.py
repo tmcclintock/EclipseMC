@@ -56,7 +56,11 @@ class Nuclear_drive(Part):
 
 class Nuclear_source(Part):
     def __init__(self):
-        Part.__init__(self,name="Nuclear Source",power=2)
+        Part.__init__(self,name="Nuclear Source",power=3)
+
+class Plasma_cannon(Part):
+    def __init__(self):
+        Part.__init__(self,name="Plasma Cannon",power=-2,weapons=[weapon_objects.Plasma_cannon()])
 
 if __name__ == '__main__':
     print Blank()
@@ -66,3 +70,4 @@ if __name__ == '__main__':
     print Ion_cannon()
     print Nuclear_drive()
     print Nuclear_source()
+    print Plasma_cannon()

@@ -2,6 +2,7 @@
 This file contains the ship parent class as well as child classes for each of the the ships.
 """
 
+import copy as copy_module #Needed to make deep copies of ships
 import parts as ship_parts
 
 class Ship(object):
@@ -10,10 +11,10 @@ class Ship(object):
         self.parts = parts
 
     def __str__(self):
-        partsstring = "\t"
+        partsstring = ""
         if self.parts is not None:
             for i,p in zip(range(len(self.parts)),self.parts):
-                partsstring = partsstring+str(i)+". "+p.name+"\n\t"
+                partsstring = partsstring+"\t"+str(i)+". "+p.name+"\n"
         return "%s:\n%s"%(self.name,partsstring)
 
     def swap(self,part,index):
@@ -41,16 +42,18 @@ class Ship(object):
             barrage.append(shot)
         return barrage
 
+    def copy(self):
+        return copy_module.deepcopy(self)
+
 class Interceptor(Ship):
     def __init__(self):
         Ship.__init__(self,name="Interceptor",parts=[ship_parts.Blank(),ship_parts.Ion_cannon(),ship_parts.Nuclear_drive(),ship_parts.Nuclear_source()])
 
-
 if __name__ == '__main__':
-    ship = Ship(name="test",parts=[ship_parts.Blank(),ship_parts.Ion_cannon()])
-    print ship
     ic = Interceptor()
     print ic
-    ic.swap(ship_parts.Ion_cannon(),0)
+    ic.swap(ship_parts.Plasma_cannon(),0)
     print ic
-    print ic.attack()
+    cic = ic.copy()
+    cic.swap(ship_parts.Electron_computer(),0)
+    print ic,cic
