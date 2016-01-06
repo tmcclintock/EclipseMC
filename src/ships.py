@@ -69,6 +69,7 @@ if __name__ == '__main__':
     print ic
     cic = ic.copy()
     cic.swap(ship_parts.Electron_computer(),0)
-    print ic,cic
+    print ic
+    print cic
     print cic.attack()
     print cmp(ic,cic)

@@ -24,6 +24,14 @@ class Fleet(object):
     def add(self,ship):
         self.shiplist.append(ship)
 
+    def attack(self):
+        attacklist = []
+        for ship in self.shiplist:
+            attacks = ship.attack()
+            for attack in attacks:
+                attacklist.append(attack)
+        return attacklist
+
     def copy(self):
         return copy_module.deepcopy(self)
 
@@ -36,3 +44,4 @@ class Fleet(object):
 if __name__ == '__main__':
     fleeta = Fleet("Player A",[ships.Interceptor(),ships.Interceptor()])
     print fleeta
+    print fleeta.attack()
