@@ -19,6 +19,7 @@ class Battle(object):
         self.Dfleet = Dfleet
         self.Ofleet_backup = copy_module.deepcopy(Ofleet)
         self.Dfleet_backup = copy_module.deepcopy(Dfleet)
+        self.sort()
 
     def __str__(self):
         return "%s:\nOffense: %sDefense: %s"%(self.name,str(self.Ofleet),str(self.Dfleet))
@@ -31,9 +32,28 @@ class Battle(object):
             all_attacks.append(self.Dfleet.attack())
         return all_attacks
 
+    def get_hulls(self):
+        #INCOMPLETE
+        return
+
+    def get_initiatives(self):
+        #INCOMPLETE
+        return
+
+    def get_shields(self):
+        #INCOMPLETE
+        return
+
+    def sort(self):
+        self.Ofleet.sort()
+        self.Dfleet.sort()
+        self.Ofleet_backup.sort()
+        self.Dfleet_backup.sort()
+
 if __name__ == '__main__':
     Ofleet = fleet_object.Fleet("Player A",[ships.Interceptor(),ships.Interceptor()])
     Dfleet = fleet_object.Fleet("Player A",[ships.Interceptor()])
+    print Ofleet
     battle = Battle("Test battle",Ofleet,Dfleet)
     print battle
     print battle.get_attacks()
