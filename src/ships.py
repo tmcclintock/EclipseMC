@@ -6,13 +6,14 @@ import copy as copy_module #Needed to make deep copies of ships
 import parts as ship_parts
 
 class Ship(object):
-    def __init__(self,name="",aim=0,initiative=0,power=0,shield=0,parts=[]):
+    def __init__(self,name="",aim=0,initiative=0,power=0,shield=0,parts=[],damage=0):
         self.name = name
         self.parts = parts
         self.aim = aim
         self.initiative = initiative
         self.power = power
         self.shield = shield
+        self.damage = damage
 
     def __str__(self):
         partsstring = ""
@@ -44,11 +45,23 @@ class Ship(object):
     def copy(self):
         return copy_module.deepcopy(self)
 
+    def get_hull(self):
+        hull = 0
+        for part in self.parts:
+            hull+=part.hull
+        return hull
+
     def get_initiative(self):
         init = self.initiative
         for part in self.parts:
             init+=part.initiative
         return init
+
+    def get_shield(self):
+        shield = self.shield
+        for part in self.parts:
+            shield+=part.shield
+        return shield
 
     def swap(self,part,index):
         if self.parts is None:

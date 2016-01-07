@@ -29,11 +29,11 @@ class Battle(object):
             all_attacks.append(self.Ofleet.attack())
         if self.Dfleet is not None:
             all_attacks.append(self.Dfleet.attack())
-        return
+        return all_attacks
 
 if __name__ == '__main__':
     Ofleet = fleet_object.Fleet("Player A",[ships.Interceptor(),ships.Interceptor()])
     Dfleet = fleet_object.Fleet("Player A",[ships.Interceptor()])
     battle = Battle("Test battle",Ofleet,Dfleet)
     print battle
-        
+    print battle.get_attacks()

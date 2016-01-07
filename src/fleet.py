@@ -45,3 +45,4 @@ if __name__ == '__main__':
     fleeta = Fleet("Player A",[ships.Interceptor(),ships.Interceptor()])
     print fleeta
     print fleeta.attack()
+    print fleeta.shiplist[0].get_hull()
